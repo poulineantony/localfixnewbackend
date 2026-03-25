@@ -1,0 +1,79 @@
+[
+  {
+    "namespace": "common",
+    "key": "common.save",
+    "defaultValue": "Save",
+    "translations": {
+      "en": "Save",
+      "hi": "सेव करें",
+      "fr": "Enregistrer",
+      "ar": "حفظ"
+    }
+  },
+  {
+    "namespace": "auth",
+    "key": "auth.login_title",
+    "defaultValue": "Login",
+    "translations": {
+      "en": "Login",
+      "hi": "लॉगिन",
+      "fr": "Connexion",
+      "ar": "تسجيل الدخول"
+    }
+  },
+  {
+    "namespace": "home",
+    "key": "home.welcome",
+    "defaultValue": "Welcome to Agensis",
+    "translations": {
+      "en": "Welcome to Agensis",
+      "hi": "Agensis में आपका स्वागत है",
+      "fr": "Bienvenue sur Agensis",
+      "ar": "مرحباً بك في Agensis"
+    }
+  },
+  {
+    "namespace": "payment",
+    "key": "payment.total",
+    "defaultValue": "Total",
+    "translations": {
+      "en": "Total",
+      "hi": "कुल",
+      "fr": "Total",
+      "ar": "الإجمالي"
+    }
+  },
+  {
+    "namespace": "legal",
+    "key": "legal.accept_terms",
+    "defaultValue": "Accept terms",
+    "translations": {
+      "en": "Accept terms",
+      "hi": "शर्तें स्वीकार करें",
+      "fr": "Accepter les conditions",
+      "ar": "قبول الشروط"
+    }
+  },
+  {
+    "namespace": "welcome",
+    "key": "welcome.headline",
+    "defaultValue": "Find Trusted Services\nNear You",
+    "translations": {
+      "en": "Find Trusted Services\nNear You",
+      "hi": "अपने पास भरोसेमंद सेवाएँ\nपाइए",
+      "fr": "Trouvez des services fiables\nprès de chez vous",
+      "ar": "اعثر على خدمات موثوقة\nبالقرب منك"
+    }
+  },
+  {
+    "namespace": "welcome",
+    "key": "welcome.subheadline",
+    "defaultValue": "Premium professionals at your doorstep.\nAnytime, anywhere.",
+    "translations": {
+      "en": "Premium professionals at your doorstep.\nAnytime, anywhere.",
+      "hi": "प्रीमियम पेशेवर अब आपके दरवाजे पर।\nकभी भी, कहीं भी।",
+      "fr": "Des professionnels premium à votre porte.\nÀ tout moment, partout.",
+      "ar": "محترفون متميزون إلى باب منزلك.\nفي أي وقت ومن أي مكان."
+    }
+  }
+]

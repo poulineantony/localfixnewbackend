@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: localfixnew-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: localfixnew_db
+      POSTGRES_USER: localfixnew
+      POSTGRES_PASSWORD: localfixnew
+    ports:
+      - "5433:5432"
+    volumes:
+      - localfixnew-postgres-data:/var/lib/postgresql/data
+
+volumes:
+  localfixnew-postgres-data:

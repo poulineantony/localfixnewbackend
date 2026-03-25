@@ -1,0 +1,263 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String               @id @default(cuid())
+  phone             String               @unique
+  name              String
+  email             String?
+  avatar            String?
+  role              String               @default("customer")
+  preferredLanguage String               @default("en")
+  isVerified        Boolean              @default(true)
+  isEmailVerified   Boolean              @default(true)
+  address           Json?
+  createdAt         DateTime             @default(now())
+  updatedAt         DateTime             @updatedAt
+  addresses         SavedAddress[]
+  bookings          Booking[]
+  devices           DeviceRegistration[]
+
+  @@map("new_users")
+}
+
+model OtpCode {
+  id           String    @id @default(cuid())
+  phone        String
+  code         String
+  devicePayload Json?
+  expiresAt    DateTime
+  consumedAt   DateTime?
+  createdAt    DateTime  @default(now())
+
+  @@index([phone, createdAt(sort: Desc)])
+  @@map("new_otp_codes")
+}
+
+model Language {
+  code        String   @id
+  name        String
+  nativeName  String
+  direction   String   @default("ltr")
+  isEnabled   Boolean  @default(true)
+  isFallback  Boolean  @default(false)
+  isRemovable Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("new_language_master")
+}
+
+model TranslationEntry {
+  id           String   @id @default(cuid())
+  namespace    String
+  key          String   @unique
+  defaultValue String
+  translations Json
+  version      Int      @default(1)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("new_translation_entries")
+}
+
+model HomeSection {
+  id           String   @id @default(cuid())
+  key          String   @unique
+  type         String
+  enabled      Boolean  @default(true)
+  displayOrder Int      @default(0)
+  audience     Json?
+  countryCodes Json?
+  zoneCodes    Json?
+  providerIds  Json?
+  content      Json
+  version      String   @default("2026.03.25")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("new_dynamic_content")
+}
+
+model LegalDocument {
+  id            String   @id @default(cuid())
+  type          String
+  version       String
+  effectiveDate DateTime
+  mandatory     Boolean  @default(true)
+  title         Json
+  url           String
+  content       Json?
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@unique([type, version])
+  @@map("new_legal_documents")
+}
+
+model PaymentMethod {
+  code         String   @id
+  enabled      Boolean  @default(true)
+  title        Json
+  displayOrder Int      @default(0)
+  meta         Json?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("new_payment_methods")
+}
+
+model Provider {
+  id             String    @id @default(cuid())
+  businessName   String
+  userName       String
+  phone          String?
+  serviceIds     Json
+  experienceYears Int      @default(1)
+  ratingAverage  Float     @default(4.5)
+  ratingCount    Int       @default(0)
+  completedJobs  Int       @default(0)
+  isAvailable    Boolean   @default(true)
+  isVerified     Boolean   @default(true)
+  serviceArea    Json?
+  certifications Json?
+  zoneCode       String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  bookings       Booking[]
+  reviews        Review[]
+
+  @@map("new_providers")
+}
+
+model ServiceItem {
+  id               String    @id @default(cuid())
+  name             String
+  description      String
+  category         String
+  subcategory      String?
+  basePrice        Int
+  currency         String    @default("INR")
+  durationEstimate Int
+  durationUnit     String    @default("minutes")
+  iconName         String?
+  logoUrl          String?
+  accentColor      String?
+  ratingAverage    Float     @default(4.5)
+  ratingCount      Int       @default(0)
+  isActive         Boolean   @default(true)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  bookings         Booking[]
+  reviews          Review[]
+
+  @@index([category, isActive])
+  @@map("new_services")
+}
+
+model SavedAddress {
+  id             String    @id @default(cuid())
+  userId         String
+  label          String
+  customLabel    String?
+  street         String?
+  landmark       String?
+  formattedAddress String?
+  city           String?
+  state          String?
+  country        String?
+  zipCode        String?
+  placeId        String?
+  zoneId         String?
+  zoneName       String?
+  isFallbackZone Boolean   @default(false)
+  latitude       Float?
+  longitude      Float?
+  isDefault      Boolean   @default(false)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isDefault])
+  @@map("new_saved_addresses")
+}
+
+model Booking {
+  id                 String      @id @default(cuid())
+  bookingNumber      String      @unique
+  customerId         String
+  providerId         String
+  serviceId          String
+  additionalServiceIds Json?
+  status             String      @default("confirmed")
+  scheduledDate      DateTime
+  scheduledStartTime String
+  address            Json
+  pricing            Json
+  materialWorkflow   Json?
+  payment            Json
+  paymentStatus      String      @default("paid")
+  notes              String?
+  completedAt        DateTime?
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+  customer           User        @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  provider           Provider    @relation(fields: [providerId], references: [id])
+  service            ServiceItem @relation(fields: [serviceId], references: [id])
+  reviews            Review[]
+
+  @@index([customerId, status])
+  @@map("new_bookings")
+}
+
+model Review {
+  id           String      @id @default(cuid())
+  providerId   String
+  bookingId    String
+  serviceId    String?
+  customerName String
+  rating       Int
+  comment      String?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  provider     Provider    @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  booking      Booking     @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  service      ServiceItem? @relation(fields: [serviceId], references: [id])
+
+  @@index([providerId, createdAt(sort: Desc)])
+  @@map("new_reviews")
+}
+
+model DeviceRegistration {
+  id                            String   @id @default(cuid())
+  userId                        String
+  appType                       String   @default("customer")
+  deviceId                      String
+  deviceModel                   String?
+  manufacturer                  String?
+  brand                         String?
+  platform                      String?
+  osVersion                     String?
+  appVersion                    String?
+  buildNumber                   String?
+  fcmToken                      String?
+  pushEnabled                   Boolean  @default(false)
+  notificationPermissionGranted Boolean  @default(false)
+  locale                        String?
+  timezone                      String?
+  createdAt                     DateTime @default(now())
+  updatedAt                     DateTime @updatedAt
+  user                          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, deviceId])
+  @@map("new_device_registrations")
+}

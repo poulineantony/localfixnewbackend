@@ -1,0 +1,42 @@
+{
+  "database": "localfixnew_db",
+  "collection": "new_language_master",
+  "seed": [
+    {
+      "code": "en",
+      "name": "English",
+      "nativeName": "English",
+      "direction": "ltr",
+      "isEnabled": true,
+      "isFallback": true,
+      "isRemovable": false
+    },
+    {
+      "code": "hi",
+      "name": "Hindi",
+      "nativeName": "हिन्दी",
+      "direction": "ltr",
+      "isEnabled": true,
+      "isFallback": false,
+      "isRemovable": true
+    },
+    {
+      "code": "fr",
+      "name": "French",
+      "nativeName": "Français",
+      "direction": "ltr",
+      "isEnabled": true,
+      "isFallback": false,
+      "isRemovable": true
+    },
+    {
+      "code": "ar",
+      "name": "Arabic",
+      "nativeName": "العربية",
+      "direction": "rtl",
+      "isEnabled": true,
+      "isFallback": false,
+      "isRemovable": true
+    }
+  ]
+}
