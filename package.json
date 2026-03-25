@@ -12,8 +12,11 @@
     "prisma:push": "prisma db push",
     "prisma:migrate": "prisma migrate dev --name init",
     "seed": "node prisma/seed/index.js",
+    "docker:up": "docker compose up -d --build",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f backend",
     "db:up": "docker compose up -d postgres",
-    "db:down": "docker compose down"
+    "db:down": "docker compose stop postgres"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",

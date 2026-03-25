@@ -1,14 +1,53 @@
 services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: localfixnew-backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PORT: 3000
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${POSTGRES_USER:-localfixnew}:${POSTGRES_PASSWORD:-localfixnew}@postgres:5432/${POSTGRES_DB:-localfixnew_db}?schema=public
+      JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET:-localfixnew-access-secret}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-localfixnew-refresh-secret}
+      JWT_ACCESS_EXPIRES_IN: ${JWT_ACCESS_EXPIRES_IN:-1d}
+      JWT_REFRESH_EXPIRES_IN: ${JWT_REFRESH_EXPIRES_IN:-30d}
+      TENANT_ID: ${TENANT_ID:-tenant_agensis}
+      TENANT_CODE: ${TENANT_CODE:-AGENSIS}
+      TENANT_NAME: ${TENANT_NAME:-Agensis}
+      PLATFORM_NAME: ${PLATFORM_NAME:-Agensis Platform}
+      APP_COUNTRY_CODE: ${APP_COUNTRY_CODE:-IN}
+      APP_COUNTRY_NAME: ${APP_COUNTRY_NAME:-India}
+      APP_CURRENCY: ${APP_CURRENCY:-INR}
+      APP_TIMEZONE: ${APP_TIMEZONE:-Asia/Calcutta}
+      APP_ZONE_CODE: ${APP_ZONE_CODE:-IN_CHENNAI}
+      APP_ZONE_NAME: ${APP_ZONE_NAME:-Chennai}
+      RAZORPAY_KEY_ID: ${RAZORPAY_KEY_ID:-mock_localfixnew}
+    ports:
+      - "3000:3000"
+    command: >-
+      sh -c "npx prisma db push && npm run seed && node dist/main"
   postgres:
     image: postgres:16-alpine
     container_name: localfixnew-postgres
     restart: unless-stopped
     environment:
-      POSTGRES_DB: localfixnew_db
-      POSTGRES_USER: localfixnew
-      POSTGRES_PASSWORD: localfixnew
+      POSTGRES_DB: ${POSTGRES_DB:-localfixnew_db}
+      POSTGRES_USER: ${POSTGRES_USER:-localfixnew}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-localfixnew}
     ports:
       - "5433:5432"
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U ${POSTGRES_USER:-localfixnew} -d ${POSTGRES_DB:-localfixnew_db}
+      interval: 10s
+      timeout: 5s
+      retries: 5
     volumes:
       - localfixnew-postgres-data:/var/lib/postgresql/data
 
