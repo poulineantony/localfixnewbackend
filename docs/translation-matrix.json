@@ -57,23 +57,100 @@
   {
     "namespace": "welcome",
     "key": "welcome.headline",
-    "defaultValue": "Find Trusted Services\nNear You",
+    "defaultValue": "Run Agency Operations\nEmpower Providers",
+    "version": 2,
     "translations": {
-      "en": "Find Trusted Services\nNear You",
-      "hi": "अपने पास भरोसेमंद सेवाएँ\nपाइए",
-      "fr": "Trouvez des services fiables\nprès de chez vous",
-      "ar": "اعثر على خدمات موثوقة\nبالقرب منك"
+      "en": "Run Agency Operations\nEmpower Providers"
     }
   },
   {
     "namespace": "welcome",
     "key": "welcome.subheadline",
-    "defaultValue": "Premium professionals at your doorstep.\nAnytime, anywhere.",
+    "defaultValue": "A role-based workspace for agencies and providers to manage requests, assignments, and service delivery.",
+    "version": 2,
     "translations": {
-      "en": "Premium professionals at your doorstep.\nAnytime, anywhere.",
-      "hi": "प्रीमियम पेशेवर अब आपके दरवाजे पर।\nकभी भी, कहीं भी।",
-      "fr": "Des professionnels premium à votre porte.\nÀ tout moment, partout.",
-      "ar": "محترفون متميزون إلى باب منزلك.\nفي أي وقت ومن أي مكان."
+      "en": "A role-based workspace for agencies and providers to manage requests, assignments, and service delivery."
+    }
+  },
+  {
+    "namespace": "welcome",
+    "key": "welcome.topline",
+    "defaultValue": "For Agencies & Providers",
+    "version": 2,
+    "translations": {
+      "en": "For Agencies & Providers"
+    }
+  },
+  {
+    "namespace": "welcome",
+    "key": "welcome.eyebrow",
+    "defaultValue": "Role-Based Access",
+    "version": 2,
+    "translations": {
+      "en": "Role-Based Access"
+    }
+  },
+  {
+    "namespace": "welcome",
+    "key": "welcome.primary_metric_value",
+    "defaultValue": "24/7",
+    "version": 2,
+    "translations": {
+      "en": "24/7"
+    }
+  },
+  {
+    "namespace": "welcome",
+    "key": "welcome.primary_metric_label",
+    "defaultValue": "Agency operations",
+    "version": 2,
+    "translations": {
+      "en": "Agency operations"
+    }
+  },
+  {
+    "namespace": "welcome",
+    "key": "welcome.secondary_metric_value",
+    "defaultValue": "2 roles",
+    "version": 2,
+    "translations": {
+      "en": "2 roles"
+    }
+  },
+  {
+    "namespace": "welcome",
+    "key": "welcome.secondary_metric_label",
+    "defaultValue": "Agency and provider access",
+    "version": 2,
+    "translations": {
+      "en": "Agency and provider access"
+    }
+  },
+  {
+    "namespace": "welcome",
+    "key": "welcome.quick_agency",
+    "defaultValue": "Agency Control",
+    "version": 2,
+    "translations": {
+      "en": "Agency Control"
+    }
+  },
+  {
+    "namespace": "welcome",
+    "key": "welcome.quick_provider",
+    "defaultValue": "Provider Workflows",
+    "version": 2,
+    "translations": {
+      "en": "Provider Workflows"
+    }
+  },
+  {
+    "namespace": "welcome",
+    "key": "welcome.get_started",
+    "defaultValue": "Continue",
+    "version": 2,
+    "translations": {
+      "en": "Continue"
     }
   }
 ]

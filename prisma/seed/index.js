@@ -326,6 +326,7 @@ async function seedTranslations() {
         namespace: entry.namespace,
         defaultValue: entry.defaultValue,
         translations: entry.translations,
+        version: Number(entry.version || 1),
         isActive: true
       },
       create: {
@@ -333,6 +334,7 @@ async function seedTranslations() {
         namespace: entry.namespace,
         defaultValue: entry.defaultValue,
         translations: entry.translations,
+        version: Number(entry.version || 1),
         isActive: true
       }
     });
